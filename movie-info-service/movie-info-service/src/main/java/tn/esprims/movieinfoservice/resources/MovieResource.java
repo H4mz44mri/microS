@@ -13,16 +13,22 @@ import java.util.List;
 public class MovieResource {
     @Autowired
     MoviesRepository moviesRepository;
-    @RequestMapping("/{movieName}")
+    @RequestMapping("/api/{movieName}")
     public Movie getMovieInfo(@PathVariable("movieName") String movieName){
         return moviesRepository.findByName(movieName);
     }
 
-    @GetMapping("/all")
-    public MovieList getAll(){
+    @GetMapping("/api/all")
+    public MovieList getMovies(){
         MovieList movieList = new MovieList();
         movieList.setMovieList(moviesRepository.findAll());
         return movieList;
+    }
+
+    @GetMapping("/all")
+    public List<Movie> getAll()
+    {
+        return moviesRepository.findAll();
     }
 
     @PostMapping("/add")
